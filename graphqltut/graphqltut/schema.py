@@ -1,7 +1,9 @@
 import graphene
 from graphene_django import DjangoObjectType
-
+from graphene import relay, ObjectType
 from ingredients.models import Category, Ingredient
+from graphene_django.filter import DjangoFilterConnectionField
+import ingredients.schema
 
 class CategoryType(DjangoObjectType):
     class Meta:
@@ -15,19 +17,22 @@ class IngredientType(DjangoObjectType):
         fields = ('id', 'name', 'notes', 'category')
 
 
-class Query(graphene.ObjectType):
-    all_ingredients = graphene.List(IngredientType)
-    category_by_name = graphene.Field(CategoryType, name=graphene.String(required=True))
+class Query(ingredients.schema.Query, graphene.ObjectType):
+    # all_ingredients = graphene.List(IngredientType)
+    # category_by_name = graphene.Field(CategoryType, name=graphene.String(required=True))
+    #
+    # def resolve_all_ingredients(root, info):
+    #     return Ingredient.objects.select_related('category').all()
+    #
+    # def resolve_category_by_name(root, info, name):
+    #     try:
+    #         return Category.objects.get(name=name)
+    #     except Category.DoesNotExist:
+    #         return None
 
-    def resolve_all_ingredients(root, info):
-        return Ingredient.objects.select_related('category').all()
-
-    def resolve_category_by_name(root, info, name):
-        try:
-            return Category.objects.get(name=name)
-        except Category.DoesNotExist:
-            return None
-
+    pass
 schema = graphene.Schema(query=Query)
+
+
 
 

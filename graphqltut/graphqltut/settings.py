@@ -122,3 +122,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # GRAPHENE = {'SCHEMA':'graphqltut.schema.schema'}
+
+# GRAPHENE = {
+#     'SCHEMA': 'graphqltut.schema.schema'
+# }
