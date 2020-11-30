@@ -1,0 +1,5 @@
+ve_django
+__pycache__
+.env
+venv
+/.idea
